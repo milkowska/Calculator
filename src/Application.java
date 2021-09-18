@@ -5,7 +5,6 @@ import java.awt.event.ActionListener;
 
 public class Application implements ActionListener {
 
-
     private JFrame frame;
     private JTextField textField;
     private JButton add, substitute, multiply, divide, decimal, equal, delete,
@@ -16,6 +15,8 @@ public class Application implements ActionListener {
 
     private Font font = new Font("Times New Roman", Font.BOLD, 35);
 
+    double first = 0, second = 0, third = 0, result = 0;
+    char sign;
 
     Application() {
 
@@ -108,6 +109,68 @@ public class Application implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
+
+        for (int i = 0; i < 10; i++) {
+            if (e.getSource() == numberOfButtons[i]) {
+                textField.setText(textField.getText().concat(String.valueOf(i)));
+            }
+        }
+
+        if (e.getSource() == add) {
+            first = Double.parseDouble(textField.getText());
+            sign = '+';
+            textField.setText("");
+        }
+        if (e.getSource() == substitute) {
+            first = Double.parseDouble(textField.getText());
+            sign = '-';
+            textField.setText("");
+        }
+        if (e.getSource() == multiply) {
+            first = Double.parseDouble(textField.getText());
+            sign = '*';
+            textField.setText("");
+        }
+        if (e.getSource() == divide) {
+            first = Double.parseDouble(textField.getText());
+            sign = '/';
+            textField.setText("");
+        }
+        if (e.getSource() == decimal) {
+            textField.setText(textField.getText().concat("."));
+        }
+        if (e.getSource() == equal) {
+            second = Double.parseDouble(textField.getText());
+
+            switch (sign) {
+                case '+':
+                    result = first + second;
+                    break;
+                case '-':
+                    result = first - second;
+                    break;
+                case '*':
+                    result = first * second;
+                    break;
+                case '/':
+                    result = first / second;
+                    break;
+            }
+            textField.setText(String.valueOf(result));
+            first = result;
+        }
+        if (e.getSource() == delete) {
+            String text = textField.getText();
+            textField.setText("");
+            for (int i = 0; i < text.length() - 1; i++) {
+                textField.setText(textField.getText() + text.charAt(i));
+            }
+        }
+        if (e.getSource() == negation) {
+            third = Double.parseDouble(textField.getText());
+            third *= -1;
+            textField.setText(String.valueOf(third));
+        }
 
     }
 }
