@@ -22,14 +22,15 @@ public class Application implements ActionListener {
 
         frame = new JFrame("Calculator");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(450, 600);
+        frame.getContentPane().setBackground(Color.pink);
+        frame.setSize(410, 550);
         frame.setLayout(null);
 
         // Creating a text field and setting font and bounds to it. Text field can not be editable
         textField = new JTextField();
         textField.setFont(font);
         textField.setEditable(false);
-        textField.setBounds(60, 30, 360, 60);
+        textField.setBounds(50, 30, 290, 60);
 
         // Creating JButtons for each mathematical symbol
         add = new JButton("+");
@@ -38,8 +39,8 @@ public class Application implements ActionListener {
         divide = new JButton("/");
         decimal = new JButton(".");
         equal = new JButton("=");
-        delete = new JButton("DELETE");
-        clear = new JButton("CLEAR");
+        delete = new JButton("D");
+        clear = new JButton("C");
         negation = new JButton("(-)");
 
         //Added each mathematical symbol button to the array storing all functional buttons
@@ -68,12 +69,15 @@ public class Application implements ActionListener {
         }
 
         //TODO set bounds for clear delete negation
+        delete.setBounds(250, 400, 90, 50);
+        clear.setBounds(150, 400, 90, 50);
+        negation.setBounds(50, 400, 90, 50);
 
         /*Creating a separate panel which contains all 9 digits and a few
          * mathematical symbols. This will be added to the frame
          * */
         panel = new JPanel();
-        panel.setBounds(60, 120, 360, 360);
+        panel.setBounds(50, 100, 293, 293);
         panel.setLayout(new GridLayout(4, 4, 12, 12));
         panel.add(numberOfButtons[1]);
         panel.add(numberOfButtons[2]);
@@ -91,7 +95,7 @@ public class Application implements ActionListener {
         panel.add(numberOfButtons[0]);
         panel.add(equal);
         panel.add(divide);
-
+        panel.setBackground(Color.pink);
         frame.add(panel);
         frame.add(negation);
         frame.add(delete);
@@ -101,11 +105,9 @@ public class Application implements ActionListener {
 
     }
 
-
     public static void main(String[] args) {
         Application calculator = new Application();
     }
-
 
     @Override
     public void actionPerformed(ActionEvent e) {
@@ -158,6 +160,9 @@ public class Application implements ActionListener {
             }
             textField.setText(String.valueOf(result));
             first = result;
+        }
+        if (e.getSource() == clear) {
+            textField.setText("");
         }
         if (e.getSource() == delete) {
             String text = textField.getText();
